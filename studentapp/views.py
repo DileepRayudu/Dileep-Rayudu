@@ -1,0 +1,19 @@
+from django.shortcuts import render
+
+
+def studenthomepage(request):
+    return render(request,'studentapp/StudentHomePage.html')
+
+from django .contrib.auth models import User
+from facultyapp.models import Marks
+from adminapp.models import StudentList
+
+def view_marks(request):
+    user = request.user
+    try:
+        student_user = user .objects.get(username=user.username)
+        student = StudentList.objects.get(Register_Number=student_user)
+        marks = Marks.objects.filter(student=student)
+        return render (request, 'studentapp/view_marks.html', {'marks': marks})
+except (StudentList.DoesNotExist, user DOesNotExist):
+return render(request,'studentapp/no_studentlist.html',{'error: No student record found for this user.'})
